@@ -1,0 +1,16 @@
+*.swp
+*.zip
+.DS_Store
+**/assets/www/
+bin/
+gen/
+
+# Android Studio and Gradle
+.idea/tasks.xml
+.idea/workspace.xml
+.idea/libraries
+.gradle
+build
+local.properties
+app/*.keystore
+
