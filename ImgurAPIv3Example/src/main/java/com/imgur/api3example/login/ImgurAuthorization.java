@@ -28,6 +28,8 @@ public class ImgurAuthorization {
     private static ImgurAuthorization INSTANCE;
 
     static final String SHARED_PREFERENCES_NAME = "imgur_example_auth";
+    
+    private ImgurAuthorization() {}
 
     public static ImgurAuthorization getInstance() {
         if (INSTANCE == null)
