@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ImgurAPIv3Example/ImgurAPIv3Example.iml" filepath="$PROJECT_DIR$/ImgurAPIv3Example/ImgurAPIv3Example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ImgurAPIv3ExampleAndroid.iml" filepath="$PROJECT_DIR$/ImgurAPIv3ExampleAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/ImgurAPIv3ExampleProject.iml" filepath="$PROJECT_DIR$/ImgurAPIv3ExampleProject.iml" />
     </modules>
   </component>
