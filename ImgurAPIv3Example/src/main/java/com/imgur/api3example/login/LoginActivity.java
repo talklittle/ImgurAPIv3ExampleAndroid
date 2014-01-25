@@ -17,9 +17,9 @@ public class LoginActivity extends Activity {
 
     private WebView mWebView;
 
-    private static final Pattern accessTokenPattern  = Pattern.compile("access_token=([^&]*)");
+    private static final Pattern accessTokenPattern = Pattern.compile("access_token=([^&]*)");
     private static final Pattern refreshTokenPattern = Pattern.compile("refresh_token=([^&]*)");
-    private static final Pattern expiresInPattern    = Pattern.compile("expires_in=(\\d+)");
+    private static final Pattern expiresInPattern = Pattern.compile("expires_in=(\\d+)");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,30 +41,34 @@ public class LoginActivity extends Activity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // intercept the tokens
                 // http://example.com#access_token=ACCESS_TOKEN&token_type=Bearer&expires_in=3600
-                Matcher m;
+                boolean tokensURL = false;
+                if (url.startsWith(MyAppConstants.MY_IMGUR_REDIRECT_URL)) {
+                    tokensURL = true;
+                    Matcher m;
 
-                m = refreshTokenPattern.matcher(url);
-                m.find();
-                String refreshToken = m.group(1);
+                    m = refreshTokenPattern.matcher(url);
+                    m.find();
+                    String refreshToken = m.group(1);
 
-                m = accessTokenPattern.matcher(url);
-                m.find();
-                String accessToken = m.group(1);
+                    m = accessTokenPattern.matcher(url);
+                    m.find();
+                    String accessToken = m.group(1);
 
-                m = expiresInPattern.matcher(url);
-                m.find();
-                long expiresIn = Long.valueOf(m.group(1));
+                    m = expiresInPattern.matcher(url);
+                    m.find();
+                    long expiresIn = Long.valueOf(m.group(1));
 
-                ImgurAuthorization.getInstance().saveRefreshToken(refreshToken, accessToken, expiresIn);
+                    ImgurAuthorization.getInstance().saveRefreshToken(refreshToken, accessToken, expiresIn);
 
-                runOnUiThread(new Runnable() {
-                    @Override public void run() {
-                        Toast.makeText(LoginActivity.this, R.string.logged_in, Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-
-                return true;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(LoginActivity.this, R.string.logged_in, Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+                }
+                return tokensURL;
             }
         });
     }
